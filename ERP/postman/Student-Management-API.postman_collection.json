@@ -1,0 +1,55 @@
+{
+  "info": {
+    "_postman_id": "e83341cc-9af2-4fa6-84d7-3e3f9c6ebfe1",
+    "name": "Student Management API",
+    "description": "Student and department REST API examples, including validation and not-found cases.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:2328" }
+  ],
+  "item": [
+    {
+      "name": "Departments",
+      "item": [
+        { "name": "List departments", "request": { "method": "GET", "url": "{{baseUrl}}/api/departments" } },
+        { "name": "Get department 1", "request": { "method": "GET", "url": "{{baseUrl}}/api/departments/1" } },
+        { "name": "Create department", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"departmentCode\": \"IT\",\n  \"departmentName\": \"Information Technology\"\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/departments" } },
+        { "name": "Update department 1", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"departmentCode\": \"IT\",\n  \"departmentName\": \"Information Technology\"\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/departments/1" } },
+        { "name": "Delete department 1", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/departments/1" } },
+        { "name": "Students in department 1", "request": { "method": "GET", "url": "{{baseUrl}}/api/departments/1/students" } }
+      ]
+    },
+    {
+      "name": "Students",
+      "item": [
+        { "name": "List students", "request": { "method": "GET", "url": "{{baseUrl}}/api/students" } },
+        { "name": "Get student 1", "request": { "method": "GET", "url": "{{baseUrl}}/api/students/1" } },
+        { "name": "Create student", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23IT001\",\n  \"name\": \"Arun Kumar\",\n  \"email\": \"arun@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Update student 1", "request": { "method": "PUT", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23IT001\",\n  \"name\": \"Arun Kumar\",\n  \"email\": \"arun@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students/1" } },
+        { "name": "Delete student 1", "request": { "method": "DELETE", "url": "{{baseUrl}}/api/students/1" } },
+        { "name": "Search students by name", "request": { "method": "GET", "url": "{{baseUrl}}/api/students/search?name=Arun" } },
+        { "name": "Search students by register number", "request": { "method": "GET", "url": "{{baseUrl}}/api/students/search?registerNo=23IT" } },
+        { "name": "Filter by department", "request": { "method": "GET", "url": "{{baseUrl}}/api/students?department=IT" } },
+        { "name": "Filter by year", "request": { "method": "GET", "url": "{{baseUrl}}/api/students?year=3" } },
+        { "name": "Filter by semester", "request": { "method": "GET", "url": "{{baseUrl}}/api/students?semester=5" } },
+        { "name": "Filter by department and year", "request": { "method": "GET", "url": "{{baseUrl}}/api/students?department=IT&year=3" } },
+        { "name": "Filter by department, year and semester", "request": { "method": "GET", "url": "{{baseUrl}}/api/students?department=IT&year=3&semester=5" } },
+        { "name": "Student statistics", "request": { "method": "GET", "url": "{{baseUrl}}/api/students/statistics" } }
+      ]
+    },
+    {
+      "name": "Expected errors",
+      "item": [
+        { "name": "Invalid email", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23ITERR1\",\n  \"name\": \"Test Student\",\n  \"email\": \"arun@\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Invalid phone", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23ITERR2\",\n  \"name\": \"Test Student\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"12345\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Invalid year", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23ITERR3\",\n  \"name\": \"Test Student\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 5,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Invalid semester", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23ITERR4\",\n  \"name\": \"Test Student\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 9\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Empty student name", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23ITERR5\",\n  \"name\": \"\",\n  \"email\": \"test@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Duplicate register number", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"registerNo\": \"23IT001\",\n  \"name\": \"Duplicate Student\",\n  \"email\": \"duplicate@example.com\",\n  \"phone\": \"9876543210\",\n  \"departmentId\": 1,\n  \"year\": 3,\n  \"semester\": 5\n}", "options": { "raw": { "language": "json" } } }, "url": "{{baseUrl}}/api/students" } },
+        { "name": "Nonexistent student", "request": { "method": "GET", "url": "{{baseUrl}}/api/students/999999" } },
+        { "name": "Nonexistent department", "request": { "method": "GET", "url": "{{baseUrl}}/api/departments/999999" } }
+      ]
+    }
+  ]
+}
